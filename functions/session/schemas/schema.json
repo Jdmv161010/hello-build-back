@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "refer": {
+          "type": "string"
+        }
+      },
+      "required": ["refer"]
+    }
+  }
+}

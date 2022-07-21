@@ -1,0 +1,79 @@
+service: hello-build-back
+frameworkVersion: "3"
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  versionFunctions: false
+  stackTags:
+    lm_app: "hello-build-back"
+  tags:
+    lm_app: "hello-build-back"
+  region: us-east-1
+  profile: personal
+  timeout: 30
+  stage: dev
+  environment:
+    STAGE: dev
+    CORS_ORIGIN: "*"
+    GITHUB_API: "https://api.github.com"
+    USERS_TABLE: "hello-build-users-table"
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - "Fn::GetAtt": [helloBuildUsersTable, Arn]
+resources:
+  Resources:
+    helloBuildUsersTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: "hello-build-users-table"
+        AttributeDefinitions:
+          - AttributeName: username
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+        BillingMode: PAY_PER_REQUEST
+        KeySchema:
+          - AttributeName: username
+            KeyType: HASH
+          - AttributeName: email
+            KeyType: RANGE
+functions:
+  session:
+    handler: functions/session/handler.session
+    events:
+      - http:
+          path: /v1/session/{proxy+}
+          method: ANY
+          cors:
+            origin:
+              - "*"
+            headers:
+              - "*"
+            allowCredentials: false
+            cacheControl: "max-age=600, s-maxage=600, proxy-revalidate"
+  profile:
+    handler: functions/profile/handler.profile
+    events:
+      - http:
+          path: /v1/profile/{proxy+}
+          method: ANY
+          cors:
+            origin:
+              - "*"
+            headers:
+              - "*"
+            allowCredentials: false
+            cacheControl: "max-age=600, s-maxage=600, proxy-revalidate"
