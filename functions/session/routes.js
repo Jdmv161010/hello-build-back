@@ -8,7 +8,11 @@ const router = Router();
 
 const { validate } = new Validator({ allErrors: true });
 
-router.post("/register", [validate(registerUserSchema)], registerUser);
-router.post("/login", [validate(authUserSchema)], authUser);
+router.post(
+  "/register",
+  [validate({ body: registerUserSchema })],
+  registerUser
+);
+router.post("/login", [validate({ body: authUserSchema })], authUser);
 
 module.exports = router;

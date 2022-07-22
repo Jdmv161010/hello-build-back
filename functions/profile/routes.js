@@ -10,12 +10,12 @@ const { validate } = new Validator({ allErrors: true });
 
 router.post(
   "/get-repositories",
-  [validate(getRepositoriesSchema)],
+  [validate({ body: getRepositoriesSchema })],
   getRepositories
 );
 router.post(
   "/save-repositories",
-  [validate(saveRepositoriesSchema)],
+  [validate({ body: saveRepositoriesSchema })],
   saveRepositories
 );
 
