@@ -4,11 +4,14 @@
     "data": {
       "type": "object",
       "properties": {
-        "refer": {
+        "user": {
           "type": "string"
+        },
+        "favRepos": {
+          "type": "array"
         }
       },
-      "required": ["refer"]
+      "required": ["user", "favRepos"]
     }
   }
 }

@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string"
+        }
+      },
+      "required": ["user"]
+    }
+  }
+}

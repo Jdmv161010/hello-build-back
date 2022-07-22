@@ -12,10 +12,11 @@
     "aws-sdk": "^2.1074.0",
     "axios": "^0.26.0",
     "cors": "^2.8.5",
-    "serverless": "^3.0.0",
-    "serverless-http": "^2.7.0",
+    "express": "^4.17.3",
+    "express-json-validator-middleware": "^3.0.1",
     "http-status-codes": "^2.2.0",
-    "express": "^4.17.3"
+    "serverless": "^3.0.0",
+    "serverless-http": "^2.7.0"
   },
   "devDependencies": {
     "serverless-offline": "^8.5.0"

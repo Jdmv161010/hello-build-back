@@ -1,9 +1,22 @@
 const { Router } = require("express");
-const getRepositories = require("./controller");
+const { Validator } = require("express-json-validator-middleware");
+const { getRepositories, saveRepositories } = require("./controller");
+const getRepositoriesSchema = require("./schemas/getRepositoriesSchema.json");
+const saveRepositoriesSchema = require("./schemas/saveRepositoriesSchema.json");
 
 const router = Router();
 
-// TODO: add validator schema
-router.post("/get-repositories", [], getRepositories);
+const { validate } = new Validator({ allErrors: true });
+
+router.post(
+  "/get-repositories",
+  [validate(getRepositoriesSchema)],
+  getRepositories
+);
+router.post(
+  "/save-repositories",
+  [validate(saveRepositoriesSchema)],
+  saveRepositories
+);
 
 module.exports = router;

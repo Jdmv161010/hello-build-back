@@ -25,7 +25,7 @@ async function registerUser(req, res = response) {
       username: String(user.user),
       email: String(user.email),
       password: String(user.password),
-      favRepos: null,
+      favRepos: [],
     },
     ReturnConsumedCapacity: "TOTAL",
     TableName: process.env.USERS_TABLE,
@@ -42,7 +42,7 @@ async function registerUser(req, res = response) {
           return res.status(StatusCodes.OK).json({ data: response });
         })
         .catch((error) => {
-          console.log("Error putting users: ", { ...error });
+          console.log("Error creating user: ", { ...error });
           return res.status(error.statusCode).json({ error: error.error });
         });
     })
@@ -69,7 +69,6 @@ async function authUser(req, res = response) {
   getDynamodbItem(query)
     .then((response) => {
       const { Items } = response;
-
       const dbUserCredentials = Items[0].password;
 
       if (dbUserCredentials !== user.password) throw Error;
@@ -79,7 +78,7 @@ async function authUser(req, res = response) {
         .json({ data: { user: Items[0].username, isAuthenticated: true } });
     })
     .catch((error) => {
-      console.log("Error getting notifications: ", { ...error });
+      console.log("Error authenticating user: ", { ...error });
       return res.status(error.statusCode).json({ error: error.error });
     });
 }
