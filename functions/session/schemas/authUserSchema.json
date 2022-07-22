@@ -5,15 +5,20 @@
       "type": "object",
       "properties": {
         "user": {
-          "type": "string",
-          "minLength": 5
-        },
-        "password": {
-          "type": "string",
-          "minLength": 5
+          "type": "object",
+          "properties": {
+            "user": {
+              "type": "string",
+              "minLength": 5
+            },
+            "password": {
+              "type": "string",
+              "minLength": 5
+            }
+          },
+          "required": ["user", "password"]
         }
-      },
-      "required": ["user", "password"]
+      }
     }
   }
 }

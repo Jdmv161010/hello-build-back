@@ -5,19 +5,24 @@
       "type": "object",
       "properties": {
         "user": {
-          "type": "string",
-          "minLength": 5
-        },
-        "email": {
-          "type": "string",
-          "minLength": 5
-        },
-        "password": {
-          "type": "string",
-          "minLength": 5
+          "type": "object",
+          "properties": {
+            "user": {
+              "type": "string",
+              "minLength": 5
+            },
+            "email": {
+              "type": "string",
+              "minLength": 5
+            },
+            "password": {
+              "type": "string",
+              "minLength": 5
+            }
+          },
+          "required": ["user", "email", "password"]
         }
-      },
-      "required": ["user", "email", "password"]
+      }
     }
   }
 }
